@@ -1,0 +1,53 @@
+$only_Au_4h
+[1] "THBS1" "CPB2"  "KRT10" "GDI2" 
+
+$only_PEG_4h
+character(0)
+
+$only_AU_24h
+ [1] "APOA2"      "MDH1B"      "LUM"        "ADIPOQ"     "F13A1"      "TGFBI"      "C9"        
+ [8] "TAGLN2"     "THBS4"      "SeRPINA3-3"
+
+$only_PEG_24h
+[1] "FGG"   "TUBB5" "TUBB3" "VCP"  
+
+$Au_4h_and_PEG_4h_not_AU_24h_and_PEG_24h
+[1] "BLVRB"
+
+$Au_4h_and_AU_24h_not_PEG_4h_and_PEG_24h
+[1] "CPN1"   "IGFBP2" "CFH"   
+
+$Au_4h_and_PEG_24h_not_PEG_4h_and_AU_24h
+[1] "CLU"      "HSP90AB1" "ACTC1"   
+
+$PEG_4h_and_AU_24h_not_Au_4h_and_PEG_24h
+[1] "KRT7"
+
+$PEG_4h_and_PEG_24h_not_Au_4h_and_AU_24h
+[1] "AMBP" "LTF" 
+
+$AU_24h_and_PEG_24h_not_Au_4h_and_PEG_4h
+[1] "SeRPINA3-8" "VNN1"      
+
+$Au_4h_and_PEG_4h_and_AU_24h_not_PEG_24h
+character(0)
+
+$Au_4h_and_PEG_4h_and_PEG_24h_not_AU_24h
+ [1] "KRT5"       "KRT75"      "TBA1B "     "FGB"        "ITIH3"      "FGA"        "SeRPINA3-5"
+ [8] "P02070"     "PLG"        "CAT"       
+
+$Au_4h_and_AU_24h_and_PEG_24h_not_PEG_4h
+[1] "eNO1"
+
+$PEG_4h_and_AU_24h_and_PEG_24h_not_Au_4h
+character(0)
+
+$all_four
+ [1] "HBB"        "ALB"        "HBA"        "APOA1"      "TF"         "C3"         "SeRPINA3-1"
+ [8] "AHSG"       "SeRPINA1"   "SeRPINA3-2" "SeRPINA3-7" "AFP"        "TTR"        "GC"        
+[15] "AGT"        "A2M"        "HPX"        "SeRPINA5"   "ACTB"       "F2"         "KNG1"      
+[22] "SeRPINC1"   "PROS1"      "TUBA4A"     "A1BG"       "GSN"        "FeTUB"      "GAPDH"     
+[29] "ORM1"       "ITIH4"      "SeRPINF2"   "CFB"        "SeRPINF1"   "SeRPINA3-4" "AFM"       
+[36] "C4"         "SeRPINA7"   "F5"         "F12AI"      "APOe"       "APOH"       "KNG2"      
+[43] "HSP90AA1"   "F9"         "SeRPINA3-6" "F10"        "ACTG1"      "PROC"      
+

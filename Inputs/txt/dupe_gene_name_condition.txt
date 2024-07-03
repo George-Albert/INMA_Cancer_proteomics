@@ -1,0 +1,54 @@
+$`1_Au_4h_D240.xlsx`
+    accession Gene.Name seq.coverage seq.count spec.count         NSAF     EMPAI                                                     description HeavySpec LightSpec Gene.Name.issues duplicated_row            Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+13     P02070       HBB         69.0        13         30 0.0092009725 3.8977880 Hemoglobin subunit beta OS=Bos taurus OX=9913 GN=HBB Pe=1 SV=1          0        30       Duplicates             No Hemoglobin subunit beta      Bos taurus     9913                   HBB  1  1
+152    Q2M2T1    H2BC12         27.8         3          5 0.0017647367 0.8967059             Histone H2B type 1 OS=Bos taurus OX=9913 Pe=1 SV=2          0         5       Duplicates     Duplicates      Histone H2B type 1      Bos taurus     9913                  <NA>  1  2
+406    P31098      SPP1          4.7         1          1 0.0001599689 0.1142945            Osteopontin OS=Bos taurus OX=9913 GN=SPP1 Pe=1 SV=2          0         1       Duplicates     Duplicates             Osteopontin      Bos taurus     9913                  SPP1  1  2
+
+$`13_PEG_24h_D240.xlsx`
+    accession Gene.Name seq.coverage seq.count spec.count         NSAF     EMPAI                                    description HeavySpec LightSpec Gene.Name.issues duplicated_row  Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+175    P31098      SPP1         10.5         2          2 0.0005233017 0.2735031 Osteopontin-K OS=Bos taurus OX=9913 Pe=2 SV=1          0         2       Duplicates             No Osteopontin-K      Bos taurus     9913                  <NA>  2  1
+
+$`14_PEG_24h_D240.xlsx`
+   accession Gene.Name seq.coverage seq.count spec.count       NSAF     EMPAI                                                     description HeavySpec LightSpec Gene.Name.issues duplicated_row         Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+65    Q2M2T1    H2BC12         11.9         4          6 0.01659413 0.3152248 Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0         6       Duplicates     Duplicates Histone H2B type 1-K      Bos taurus     9913                H2BC12  1  3
+
+$`15_PEG_24h_D240.xlsx`
+                        accession Gene.Name seq.coverage seq.count spec.count         NSAF     EMPAI                                                                                                       description HeavySpec LightSpec Gene.Name.issues duplicated_row                                                            Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+174                        Q2M2T1    H2BC12         19.0         2          2 8.251915e-04 0.5488166                                                   Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0         2       Duplicates     Duplicates                                                    Histone H2B type 1-K      Bos taurus     9913                H2BC12  1  3
+193                        P00921       CA2         15.4         3          3 5.998507e-04 0.4256076                                               CAH-II Carbonic anhydrase 2 OS=Bos taurus OX=9913 GN=CA2 Pe=1 SV=3          0         3       Duplicates             No                                             CAH-II Carbonic anhydrase 2      Bos taurus     9913                   CA2  1  3
+346 Reverse_sp|A5PK26|ACAP1_BOVIN     ACAP1          0.8         1          1 6.978129e-05 0.0185914 Arf-GAP with coiled-coil, ANK repeat and PH domain-containing protein 1 OS=Bos taurus OX=9913 GN=ACAP1 Pe=2 SV=1          0         1       Duplicates             No Arf-GAP with coiled-coil, ANK repeat and PH domain-containing protein 1      Bos taurus     9913                 ACAP1  2  1
+
+$`16_PEG_24h_D240.xlsx`
+    accession Gene.Name seq.coverage seq.count spec.count         NSAF     EMPAI                                                     description HeavySpec LightSpec Gene.Name.issues duplicated_row         Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+164    Q2M2T1    H2BC12         11.9         1          1 0.0006130573 0.3152248 Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0         1       Duplicates     Duplicates Histone H2B type 1-K      Bos taurus     9913                H2BC12  1  3
+
+$`2_Au_4h_D240_bis.xlsx`
+    accession Gene.Name seq.coverage seq.count spec.count        NSAF    EMPAI                                         description HeavySpec LightSpec Gene.Name.issues duplicated_row       Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+119    Q2M2T1    H2BC12         33.3         4          6 0.002367776 1.152782 Histone H2B type 1 OS=Bos taurus OX=9913 Pe=1 SV=2          0         6       Duplicates     Duplicates Histone H2B type 1      Bos taurus     9913                  <NA>  1  2
+
+$`3_Au_4h_D240.xlsx`
+    accession Gene.Name seq.coverage seq.count spec.count         NSAF     EMPAI                                                                                                        description HeavySpec LightSpec Gene.Name.issues duplicated_row       Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+139    Q2M2T1    H2BC12         27.8         3          3 0.0011540905 0.8967059 Histone H2B type 1 OS=Bos taurus OX=9913 Pe=1 SV=2 Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0         3       Duplicates     Duplicates Histone H2B type 1      Bos taurus     9913                H2BC12  1  2
+284    P31098      SPP1         10.5         2          2 0.0003499769 0.2735031                                                                     Osteopontin-K OS=Bos taurus OX=9913 Pe=2 SV=1          0         2       Duplicates             No      Osteopontin-K      Bos taurus     9913                  <NA>  2  1
+
+$`4_Au_4h_D238.xlsx`
+   accession Gene.Name seq.coverage seq.count spec.count        NSAF     EMPAI                                                     description HeavySpec LightSpec Gene.Name.issues duplicated_row         Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+92    Q2M2T1    H2BC12         11.9         3          4 0.006113733 0.3152248 Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0         4       Duplicates     Duplicates Histone H2B type 1-K      Bos taurus     9913                H2BC12  1  3
+
+$`6_PEG_4h_D240_bis.xlsx`
+                       accession Gene.Name seq.coverage seq.count spec.count         NSAF     EMPAI                                                              description HeavySpec LightSpec Gene.Name.issues duplicated_row                    Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+70                        Q2M2T1    H2BC12         41.3         9         11 0.0043656050 1.5882127          Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0        11       Duplicates     Duplicates            Histone H2B type 1-K      Bos taurus     9913                H2BC12  1  3
+141                       Q5e9F8     H3-3A         25.7         7         12 0.0044122958 0.8071741                            Histone H3.1 OS=Bos taurus OX=9913 Pe=1 SV=2          0        12       Duplicates     Duplicates                    Histone H3.1      Bos taurus     9913                  <NA>  1  2
+142                       P84227     H3-3A         25.7         7         12 0.0044122958 0.8071741                   Histone H3.3 OS=Bos taurus OX=9913 GN=H3-3A Pe=1 SV=3          0        12       Duplicates     Duplicates                    Histone H3.3      Bos taurus     9913                 H3-3A  1  3
+329 Reverse_sp|Q29S21|K2C7_BOVIN      KRT7          5.4         2          4 0.0004292362 0.1324004 Keratin, type II cytoskeletal 7 OS=Bos taurus OX=9913 GN=KRT7 Pe=2 SV=1          0         4       Duplicates             No Keratin, type II cytoskeletal 7      Bos taurus     9913                  KRT7  2  1
+
+$`7_PEG_4h_D240.xlsx`
+                       accession Gene.Name seq.coverage seq.count spec.count         NSAF      EMPAI                                                                            description HeavySpec LightSpec Gene.Name.issues duplicated_row                                  Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+150                       Q2M2T1    H2BC12         19.0         2          2 9.105192e-04 0.54881656                        Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0         2       Duplicates     Duplicates                          Histone H2B type 1-K      Bos taurus     9913                H2BC12  1  3
+314 Reverse_sp|A6QP57|TGM3_BOVIN      TGM3          1.3         1          1 8.301404e-05 0.03038609 Protein-glutamine gamma-glutamyltransferase e OS=Bos taurus OX=9913 GN=TGM3 Pe=2 SV=1          0         1       Duplicates             No Protein-glutamine gamma-glutamyltransferase e      Bos taurus     9913                  TGM3  2  1
+
+$`9_Au_24h_D240.xlsx`
+    accession Gene.Name seq.coverage seq.count spec.count         NSAF     EMPAI                                                     description HeavySpec LightSpec Gene.Name.issues duplicated_row         Protein.Name Organism.Source Taxonomy Gene.Name.description Pe SV
+207    Q2M2T1    H2BC12         19.0         2          4 0.0016522818 0.5488166 Histone H2B type 1-K OS=Bos taurus OX=9913 GN=H2BC12 Pe=1 SV=3          0         4       Duplicates     Duplicates Histone H2B type 1-K      Bos taurus     9913                H2BC12  1  3
+305    P31098      SPP1         10.5         2          2 0.0003757897 0.2735031                  Osteopontin-K OS=Bos taurus OX=9913 Pe=2 SV=1          0         2       Duplicates             No        Osteopontin-K      Bos taurus     9913                  <NA>  2  1
+

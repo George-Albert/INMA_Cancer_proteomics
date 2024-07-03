@@ -1,0 +1,17 @@
+"Sample.Name" "N.genes"
+"1" "1_Au_4h_D240.xlsx" 421
+"2" "10_Au_24h_D240.xlsx" 131
+"3" "11_Au_24h_D240.xlsx" 146
+"4" "12_Au_24h_D238.xlsx" 168
+"5" "13_PEG_24h_D240.xlsx" 225
+"6" "14_PEG_24h_D240.xlsx" 128
+"7" "15_PEG_24h_D240.xlsx" 322
+"8" "16_PEG_24h_D240.xlsx" 228
+"9" "2_Au_4h_D240_bis.xlsx" 368
+"10" "3_Au_4h_D240.xlsx" 353
+"11" "4_Au_4h_D238.xlsx" 176
+"12" "5_PEG_4h_D240_bis.xlsx" 145
+"13" "6_PEG_4h_D240_bis.xlsx" 362
+"14" "7_PEG_4h_D240.xlsx" 289
+"15" "8_PEG_4h_D238.xlsx" 18
+"16" "9_Au_24h_D240.xlsx" 366
