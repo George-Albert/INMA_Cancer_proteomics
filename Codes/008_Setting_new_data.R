@@ -259,7 +259,7 @@ metadata$Setup <- paste0(metadata$Particle,"_Evs_",metadata$Evs)
 
 #Define colors and fill vectors
 
-color_mapping <- c("#FFFF33", "gold", "goldenrod3", "grey","green","green", "blue", "blue" )
+color_mapping <- c("#FFFF33", "gold", "goldenrod3", "grey","green","green", "blue", "blue")
 
 names(color_mapping) <- unique(metadata$Setup)
 col_vec <- sapply(color_mapping, function(x) color.id(x)[1])
@@ -268,20 +268,7 @@ metadata$Fill  <- "white"
 metadata$Color <- col_vec[match(metadata$Setup, unique(metadata$Setup))]
 metadata[metadata$Evs =="NO",]$Fill <- metadata[metadata$Evs =="NO",]$Color
 
-color_mapping <- c(
-  "#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF", # Red, Green, Blue, Yellow, Magenta, Cyan
-  "#800000", "#008000", "#000080", "#808000", "#800080", "#008080", # DarkRed, DarkGreen, Navy, Olive, Purple, Teal
-  "#FFA500", "#A52A2A", "#5F9EA0", "#7FFF00", "#D2691E", "#6495ED", # Orange, Brown, CadetBlue, Chartreuse, Chocolate, CornflowerBlue
-  "#DC143C", "#00CED1", "#FF1493", "#ADFF2F", "#FF69B4", "#4B0082"  # Crimson, DarkTurquoise, DeepPink, GreenYellow, HotPink, Indigo
-)
-names(color_mapping) <- unique(metadata$short_setup)
-col_vec <- sapply(color_mapping, function(x) color.id(x)[1])
-
-metadata$Fill_short  <- "white"
-metadata$Color_short <- col_vec[match(metadata$short_setup, unique(metadata$short_setup))]
-metadata[metadata$Evs =="NO",]$Fill_short <- metadata[metadata$Evs =="NO",]$Color_short
-
-metadata_copy <- metadata
+# metadata_copy <- metadata
 
 metadata <- metadata %>% 
   arrange(Particle, desc(Evs), desc(Time))
@@ -319,56 +306,90 @@ non_zero_counts <- reads %>%
   summarise(across(everything(), ~ sum(. > 0))) %>%
   pivot_longer(cols = everything(), names_to = "Condition", values_to = "NonZeroGeneCount")
 
+non_zero_counts$Color <- metadata$Color
+color_base <- non_zero_counts$Color[which(!duplicated(non_zero_counts$Condition))]
+names(color_base) <- non_zero_counts$Condition
+
+non_zero_counts <- non_zero_counts %>% 
+  mutate(Evs=ifelse(grepl("Evs",Condition),1,0)) %>% 
+  arrange(desc(Evs))
+
+non_zero_counts$Condition <- factor(non_zero_counts$Condition,levels = unique(non_zero_counts$Condition))
+
+non_zero_counts_1 <- non_zero_counts[1:36,]
+non_zero_counts_2 <- non_zero_counts[37:nrow(non_zero_counts),]
+
 # Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 # 73.0   206.0   268.0   346.1   468.0  1668.0 
 
-# Create histogram
-hist_plt <- ggplot(non_zero_counts, aes(x = Condition, y = NonZeroGeneCount)) +
-  geom_col(fill = "skyblue",color="black") +
+# Create histogram for all particles
+hist_plt <- ggplot(non_zero_counts, aes(x = Condition, y = NonZeroGeneCount,fill = Condition)) +
+  geom_col(color="black") +
+  scale_fill_manual(values=color_base)+
   labs(title = "Number of Genes by Condition",
        x = "Condition",
        y = "Number of Genes") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.text = element_text(size = 8),  # Ajusta el tamaño del texto de la leyenda
+        legend.title = element_text(size = 10), # Ajusta el tamaño del título de la leyenda
+        legend.key.size = unit(0.5, 'lines'))
 
 hist_plt
 
 create_dir(output_dir)
 
-pdf(file = file.path(output_dir,"003_Num_genes_per_sample_all_added.pdf"))
+pdf(file = file.path(output_dir,"003_Num_genes_per_sample_all_added.pdf"),width = 15,height = 8)
 print(hist_plt)
 dev.off()
 
+# Create histogram for Evs particles
+non_zero_counts_1$Condition <- factor(non_zero_counts_1$Condition,levels = non_zero_counts_1$Condition)
+color_base <- non_zero_counts_1$Color[which(!duplicated(non_zero_counts_1$Condition))]
+names(color_base) <- non_zero_counts_1$Condition
 
-#################################################
-##  Remove samples with low quantity of genes  ##
-#################################################
-
-# create a table to introduce to histogram
-non_zero_counts <- reads %>%
-  summarise(across(everything(), ~ sum(. > 0))) %>%
-  pivot_longer(cols = everything(), names_to = "Condition", values_to = "NonZeroGeneCount")
-
-# Create histogram of genes per sample before filtering
-non_zero_counts$Condition <- factor(non_zero_counts$Condition,levels = non_zero_counts$Condition)
-non_zero_counts$Color <- metadata$Color
-
-hist_plt_rm <- ggplot(non_zero_counts, aes(x = Condition, y = NonZeroGeneCount,fill = Condition)) +
+hist_plt_1 <- ggplot(non_zero_counts_1, aes(x = Condition, y = NonZeroGeneCount,fill = Condition)) +
   geom_col(color="black") +
-  scale_fill_manual(values=non_zero_counts$Color)+
-  labs(title = "Number of Genes by Condition",
+  scale_fill_manual(values=color_base)+
+  labs(title = "Number of Genes by Condition (just Evs)",
        x = "Condition",
        y = "Number of Genes") +
-  # ylim(0,500)+
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 70, hjust = 1),
-        legend.text = element_text(size = 8),   
-        # legend.title = element_text(size = 10), 
-        legend.key.size = unit(0.5, 'lines') )
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.text = element_text(size = 8),  # Ajusta el tamaño del texto de la leyenda
+        legend.title = element_text(size = 10), # Ajusta el tamaño del título de la leyenda
+        legend.key.size = unit(0.5, 'lines'))
 
-hist_plt_rm
+hist_plt_1
 
-pdf(file = file.path(output_dir,"004_Num_genes_colored_by_sample.pdf"),width = 15,height=8)
-print(hist_plt_rm)
+create_dir(output_dir)
+
+pdf(file = file.path(output_dir,"004_Num_genes_per_sample_Evs_added.pdf"),width = 15,height = 8)
+print(hist_plt_1)
+dev.off()
+
+# Create histogram for naked particles
+non_zero_counts_2$Condition <- factor(non_zero_counts_2$Condition,levels = non_zero_counts_2$Condition)
+color_base <- non_zero_counts_2$Color[which(!duplicated(non_zero_counts_2$Condition))]
+names(color_base) <- non_zero_counts_2$Condition
+
+hist_plt_2 <- ggplot(non_zero_counts_2, aes(x = Condition, y = NonZeroGeneCount,fill = Condition)) +
+  geom_col(color="black") +
+  scale_fill_manual(values=color_base)+
+  labs(title = "Number of Genes by Condition (naked particles)",
+       x = "Condition",
+       y = "Number of Genes") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1),
+        legend.text = element_text(size = 8),  # Ajusta el tamaño del texto de la leyenda
+        legend.title = element_text(size = 10), # Ajusta el tamaño del título de la leyenda
+        legend.key.size = unit(0.5, 'lines'))
+
+hist_plt_2
+
+create_dir(output_dir)
+
+pdf(file = file.path(output_dir,"005_Num_genes_per_sample_particle_naked_added.pdf"),width = 15,height = 8)
+print(hist_plt_2)
 dev.off()
 
