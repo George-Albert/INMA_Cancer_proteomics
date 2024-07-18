@@ -54,6 +54,7 @@ metadata=read.table(file.path(input_dir,"txt","metadata_filtered_added.txt"))
 reads_spec=read.table(file.path(input_dir,"txt","reads_spec_added.txt"))
 
 reads_spec <- reads_spec[,rownames(metadata)]
+reads_spec[is.na(reads_spec)] <- 0
 length(which(rownames(metadata) != colnames(reads_spec)))
 
 ##################################################################
@@ -99,114 +100,103 @@ fit2=eBayes(fit,trend=T, robust=T)
 betas <- data.frame(fit2$coefficients)
 p.value <- fit2$p.value
 
-Au_4h_exp_levels   <- data.frame(row.names=rownames(betas),betas$Au_4h)
-PEG_4h_exp_levels  <- data.frame(row.names=rownames(betas),betas$PEG_4h)
-Au_24h_exp_levels  <- data.frame(row.names=rownames(betas),betas$Au_24h)
-PEG_24h_exp_levels <- data.frame(row.names=rownames(betas),betas$PEG_24h)
+conditions <- colnames(betas)
 
 # Set the threshold 
-umbrales=quantile(exp_norm,c(0.1,0.25,0.5,0.75,0.9))
+umbrales=quantile(exp_norm,c(0.75,0.8,0.95))
 print(umbrales)
-vec <- umbrales[3:5]
+vec <- umbrales[3]
+venn_list <- list()
 
-for (umbral in seq_along(vec)) {
+for (condition in conditions) {
   
-  exp_genes_Au_4h=rownames(Au_4h_exp_levels)[which(Au_4h_exp_levels>vec[umbral])]
-  exp_genes_PEG_4h=rownames(PEG_4h_exp_levels)[which(PEG_4h_exp_levels>vec[umbral])]
-  exp_genes_Au_24h=rownames(Au_24h_exp_levels)[which(Au_24h_exp_levels>vec[umbral])]
-  exp_genes_PEG_24h=rownames(PEG_24h_exp_levels)[which(PEG_24h_exp_levels>vec[umbral])]
   
-  venn_dir <- "005_Venn_diagram"
+  print(condition)
+
+  exp_levels   <- data.frame(row.names=rownames(betas),betas[condition])
+  exp_genes=rownames(exp_levels)[which(exp_levels>vec)]
+  
+  venn_dir <- "010_Venn_diagram_added"
   create_dir(file.path(input_dir,venn_dir))
-  quantil <- 
-  write.table(exp_genes_Au_4h, file.path(input_dir,venn_dir,paste0(my_name(exp_genes_Au_4h),
-                                                                   "_quant_",names(vec[umbral]),".txt")))
-  write.table(exp_genes_PEG_4h, file.path(input_dir,venn_dir,paste0(my_name(exp_genes_PEG_4h),
-                                                                    "_quant_",names(vec)[umbral],".txt")))
-  write.table(exp_genes_Au_24h, file.path(input_dir,venn_dir,paste0(my_name(exp_genes_Au_24h),
-                                                                    "_quant_",names(vec)[umbral],".txt")))
-  write.table(exp_genes_PEG_24h, file.path(input_dir,venn_dir,paste0(my_name(exp_genes_PEG_24h),
-                                                                     "_quant_",names(vec)[umbral],".txt")))
+
+  write.table(exp_genes, file.path(input_dir,venn_dir,paste0(condition,"_quant_",names(vec),".txt")))
   
   create_dir(file.path(output_dir,"Figures",venn_dir))
   
-  venn_list <- list(Au_4h=exp_genes_Au_4h,PEG_4h=exp_genes_PEG_4h,
-                    Au_24h=exp_genes_Au_24h,PEG_24h=exp_genes_PEG_24h)
-  
-  name_euler <- paste0("Euler_diagram_quant_",names(vec)[umbral],".pdf")
+  venn_list[[condition]] <- exp_genes
+
+  name_euler <- paste0("Euler_diagram_quant_",names(vec),".pdf")
   name_euler <- gsub("%","_percent",name_euler)
-  
-  fill <- c("dodgerblue1","chartreuse1","coral","yellow")
-  name_labels <- c("Au_4h","PEG_4","Au_24h","PEG_24")
-  
-  venn1 <- plot(venn(venn_list),quantities=list(type = c("counts", "percent"),
-                                                col="black", font=4, round=2, cex=0.5),
-                fills = list(fill = fill, alpha = 0.6),
-                labels = list(col = "black", fontsize = 12),
-                col="black",
-                lty = 4:1,
-                lwd=3,
-                legend = list(labels = name_labels))
-  venn1
-  venn2 <- plot(venn(venn_list))
-  
-  pdf(file.path(output_dir,"Figures",venn_dir,name_euler),width=9.5,height=5)
-  print(venn1)
-  print(venn2)
-  dev.off()
-  
-  # Access specific regions
-  only_Au_4h <- setdiff(setdiff(setdiff(venn_list$Au_4h, venn_list$PEG_4h), venn_list$Au_24h), venn_list$PEG_24h)
-  only_PEG_4h <- setdiff(setdiff(setdiff(venn_list$PEG_4h, venn_list$Au_4h), venn_list$Au_24h), venn_list$PEG_24h)
-  only_AU_24h <- setdiff(setdiff(setdiff(venn_list$Au_24h, venn_list$Au_4h), venn_list$PEG_4h), venn_list$PEG_24h)
-  only_PEG_24h <- setdiff(setdiff(setdiff(venn_list$PEG_24h, venn_list$Au_4h), venn_list$PEG_4h), venn_list$Au_24h)
-  
-  Au_4h_and_PEG_4h_not_AU_24h_and_PEG_24h <- setdiff(setdiff(intersect(venn_list$Au_4h, venn_list$PEG_4h), venn_list$Au_24h), venn_list$PEG_24h)
-  Au_4h_and_AU_24h_not_PEG_4h_and_PEG_24h <- setdiff(setdiff(intersect(venn_list$Au_4h, venn_list$Au_24h), venn_list$PEG_4h), venn_list$PEG_24h)
-  Au_4h_and_PEG_24h_not_PEG_4h_and_AU_24h <- setdiff(setdiff(intersect(venn_list$Au_4h, venn_list$PEG_24h), venn_list$PEG_4h), venn_list$Au_24h)
-  PEG_4h_and_AU_24h_not_Au_4h_and_PEG_24h <- setdiff(setdiff(intersect(venn_list$PEG_4h, venn_list$Au_24h), venn_list$Au_4h), venn_list$PEG_24h)
-  PEG_4h_and_PEG_24h_not_Au_4h_and_AU_24h <- setdiff(setdiff(intersect(venn_list$PEG_4h, venn_list$PEG_24h), venn_list$Au_4h), venn_list$Au_24h)
-  AU_24h_and_PEG_24h_not_Au_4h_and_PEG_4h <- setdiff(setdiff(intersect(venn_list$Au_24h, venn_list$PEG_24h), venn_list$Au_4h), venn_list$PEG_4h)
-  
-  Au_4h_and_PEG_4h_and_AU_24h_not_PEG_24h <- setdiff(intersect(intersect(venn_list$Au_4h, venn_list$PEG_4h), venn_list$Au_24h), venn_list$PEG_24h)
-  Au_4h_and_PEG_4h_and_PEG_24h_not_AU_24h <- setdiff(intersect(intersect(venn_list$Au_4h, venn_list$PEG_4h), venn_list$PEG_24h), venn_list$Au_24h)
-  Au_4h_and_AU_24h_and_PEG_24h_not_PEG_4h <- setdiff(intersect(intersect(venn_list$Au_4h, venn_list$Au_24h), venn_list$PEG_24h), venn_list$PEG_4h)
-  PEG_4h_and_AU_24h_and_PEG_24h_not_Au_4h <- setdiff(intersect(intersect(venn_list$PEG_4h, venn_list$Au_24h), venn_list$PEG_24h), venn_list$Au_4h)
-  
-  all_four <- intersect(intersect(intersect(venn_list$Au_4h, venn_list$PEG_4h), venn_list$Au_24h), venn_list$PEG_24h)
-  
-  # List of regions and their names
-  regions <- list(
-    only_Au_4h = only_Au_4h,
-    only_PEG_4h = only_PEG_4h,
-    only_AU_24h = only_AU_24h,
-    only_PEG_24h = only_PEG_24h,
-    Au_4h_and_PEG_4h_not_AU_24h_and_PEG_24h = Au_4h_and_PEG_4h_not_AU_24h_and_PEG_24h,
-    Au_4h_and_AU_24h_not_PEG_4h_and_PEG_24h = Au_4h_and_AU_24h_not_PEG_4h_and_PEG_24h,
-    Au_4h_and_PEG_24h_not_PEG_4h_and_AU_24h = Au_4h_and_PEG_24h_not_PEG_4h_and_AU_24h,
-    PEG_4h_and_AU_24h_not_Au_4h_and_PEG_24h = PEG_4h_and_AU_24h_not_Au_4h_and_PEG_24h,
-    PEG_4h_and_PEG_24h_not_Au_4h_and_AU_24h = PEG_4h_and_PEG_24h_not_Au_4h_and_AU_24h,
-    AU_24h_and_PEG_24h_not_Au_4h_and_PEG_4h = AU_24h_and_PEG_24h_not_Au_4h_and_PEG_4h,
-    Au_4h_and_PEG_4h_and_AU_24h_not_PEG_24h = Au_4h_and_PEG_4h_and_AU_24h_not_PEG_24h,
-    Au_4h_and_PEG_4h_and_PEG_24h_not_AU_24h = Au_4h_and_PEG_4h_and_PEG_24h_not_AU_24h,
-    Au_4h_and_AU_24h_and_PEG_24h_not_PEG_4h = Au_4h_and_AU_24h_and_PEG_24h_not_PEG_4h,
-    PEG_4h_and_AU_24h_and_PEG_24h_not_Au_4h = PEG_4h_and_AU_24h_and_PEG_24h_not_Au_4h,
-    all_four = all_four
-  ) 
-  
-  #define file name
-  name_regions <- paste0("Regions_Venn_diagram_",names(vec)[umbral],".txt")
-  name_regions <- gsub("%","_percent",name_regions)
-  
-  sink(file.path(input_dir,"txt",name_regions))
-  print(regions)
-  sink()
-  
 }
+  
+  combinations <- list(venn_list[c(1,4,7)],venn_list[c(2,5,8)],venn_list[c(3,6,9)],
+                    venn_list[c(13,16)],venn_list[c(14,17)],venn_list[c(15,18)],
+                    venn_list[c(19,22)],venn_list[c(20,23)],venn_list[c(21,24)],
+                    venn_list[c(1,10)],venn_list[c(2,11)],venn_list[c(3,12)],
+                    venn_list[c(13,10)],venn_list[c(14,11)],venn_list[c(15,12)],
+                    venn_list[c(19,10)],venn_list[c(20,11)],venn_list[c(21,12)],
+                    venn_list[c(1,2,3)],venn_list[c(4,5,6)],venn_list[c(7,8,9)],
+                    venn_list[c(16,17,18)],venn_list[c(22,23,24)],
+                    venn_list[c(13,14,15)],venn_list[c(19,20,21)]
+                    )
+  names_combinations <- c("Au_naked_vs_Au_Evs_5_min","Au_naked_vs_Au_Evs_4_h","Au_naked_vs_Au_Evs_24_h",
+                          "Pd_naked_vs_Pd_Evs_5_min", "Pd_naked_vs_Pd_Evs_4_h", "Pd_naked_vs_Pd_Evs_24_h",
+                          "Pt_naked_vs_Pt_Evs_5_min", "Pt_naked_vs_Pt_Evs_4_h", "Pt_naked_vs_Pt_Evs_24_h",
+                          "Au_Evs_vs_No_particle_Evs_5_min", "Au_Evs_vs_No_particle_Evs_4_h", "Au_Evs_vs_No_particle_Evs_24_h",
+                          "Pd_Evs_vs_No_particle_Evs_5_min", "Pd_Evs_vs_No_particle_Evs_4_h", "Pd_Evs_vs_No_particle_Evs_24_h",
+                          "Pt_Evs_vs_No_particle_Evs_5_min", "Pt_Evs_vs_No_particle_Evs_4_h", "Pt_Evs_vs_No_particle_Evs_24_h",
+                          "Au_Evs_over_time", "Au_Cit_over_time", "Au_Lys_over_time",
+                          "Pd_over_time", "Pt_over_time", 
+                          "Pd_Evs_over_time", "Pt_Evs_over_time")
+  names(combinations) <- names_combinations
+  
+  fill <- c("chartreuse1","coral","yellow")
+  
+  for (comb in seq_along(combinations)) {
+    
+    name_labels <- names(combinations[[comb]])
+    venn_list_plt <- combinations[[comb]]
+    name <- names_combinations[comb]
+    venn_list_eulerr <- venn(venn_list_plt)
+    
+    
+    venn1 <- plot(venn_list_eulerr,quantities=list(type = c("counts", "percent"),
+                                                  col="black", font=4, round=2, cex=0.5),
+                  fills = list(fill = fill[1:length(combinations[[1]])], alpha = 0.6),
+                  labels = list(col = "black", fontsize = 12),
+                  col="black",
+                  lty = 4:1,
+                  lwd=3,
+                  legend = list(labels = name_labels))
+    venn1
+    venn2 <- plot(venn_list_eulerr)
+    
+    name_euler_percent <- paste0("Euler_diagram_quant_",names(vec))
+    name_euler_percent <- gsub("%","_percent",name_euler_percent)
 
-
-
-
+    create_dir(file.path(output_dir,"Figures",venn_dir,name_euler_percent))
+    region_dir <- file.path(output_dir,"Figures",venn_dir,name_euler_percent,name)
+    create_dir(region_dir)
+    
+    pdf(file.path(output_dir,"Figures",venn_dir,name_euler_percent,paste0(name,".pdf")),width=9.5,height=5)
+    print(venn1)
+    print(venn2)
+    dev.off()
+    
+    venn3 <- gplots::venn(venn_list_plt)
+    regions <- attributes(venn3)$intersections
+    
+    for (nombre in names(regions)) {
+      write.csv(regions[[nombre]], file = file.path(region_dir, paste0(nombre, ".csv")), 
+                row.names = FALSE, quote = FALSE)
+      writeLines(regions[[nombre]], file.path(region_dir, paste0(nombre, ".txt")))
+    }
+  }
+  
+  
+  
+  
+  
 
 
   
