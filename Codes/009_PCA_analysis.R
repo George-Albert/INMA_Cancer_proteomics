@@ -101,7 +101,8 @@ label <- factor(unique(combined_data$Setup),levels = unique(combined_data$Setup)
 
 combined_data$short_setup <- factor(combined_data$short_setup,levels = unique(combined_data$short_setup))
 combined_data$Setup <- factor(combined_data$Setup,levels = unique(combined_data$Setup))
-gglabel <- combined_data[c(1,28,37,56),]
+# gglabel <- combined_data[c(1,28,37,56),]
+
 # Generate the plot
 pca_plt <- ggplot(combined_data, aes(x = PC1, y = PC2, fill = Setup, 
                                      color = Setup, shape = Time)) +
@@ -197,8 +198,8 @@ combined_data$Setup <- factor(combined_data$Setup,levels = unique(combined_data$
 pca_plt2 <- ggplot(combined_data, aes(x = PC1, y = PC2, fill = Setup, 
                                      color = Setup, shape = Time)) +
   geom_point(size = 3,stroke=1.5) +
-  # geom_label_repel(aes(label = short_setup),color="black",fill="white",
-  #                  max.overlaps = 24, size = 1, nudge_x = 0.1, nudge_y = 0.1,
+  # geom_label_repel(aes(label = Sample.Names),color="black",fill="white",
+  #                  max.overlaps = 24, size = 2, nudge_x = 0.1, nudge_y = 0.1,
   #                  show.legend = F) +
   theme_bw() +
   scale_fill_manual(values = fill_base, name = "Samples",labels=label) +
@@ -280,8 +281,8 @@ combined_data$Setup <- factor(combined_data$Setup,levels = unique(combined_data$
 pca_plt3 <- ggplot(combined_data, aes(x = PC1, y = PC2, fill = Setup, 
                                      color = Setup, shape = Time)) +
   geom_point(size = 3,stroke=1.5) +
-  # geom_label_repel(aes(label = short_setup),color="black",fill="white",
-  #                  max.overlaps = 24, size = 1, nudge_x = 0.1, nudge_y = 0.1,
+  # geom_label_repel(aes(label = Sample.Names),color="black",fill="white",
+  #                  max.overlaps = 24, size = 2, nudge_x = 0.1, nudge_y = 0.1,
   #                  show.legend = F) +
   theme_bw() +
   scale_fill_manual(values = fill_base, name = "Samples",labels=label) +
@@ -362,8 +363,8 @@ combined_data$Setup <- factor(combined_data$Setup,levels = unique(combined_data$
 pca_plt4 <- ggplot(combined_data, aes(x = PC1, y = PC2, fill = Setup, 
                                       color = Setup, shape = Time)) +
   geom_point(size = 3,stroke=1.5) +
-  # geom_label_repel(aes(label = short_setup),color="black",fill="white",
-  #                  max.overlaps = 24, size = 1, nudge_x = 0.1, nudge_y = 0.1,
+  # geom_label_repel(aes(label = Sample.Names),color="black",fill="white",
+  #                  max.overlaps = 24, size = 2, nudge_x = 0.1, nudge_y = 0.1,
   #                  show.legend = F) +
   theme_bw() +
   scale_fill_manual(values = fill_base, name = "Samples",labels=label) +
