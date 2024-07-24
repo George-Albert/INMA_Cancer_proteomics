@@ -257,6 +257,9 @@ metadata[metadata$Pt=="Yes",]$Particle <- "Pt"
 metadata$short_setup <- paste0(metadata$Particle,"_Evs_",metadata$Evs,"_",metadata$Time)
 metadata$Setup <- paste0(metadata$Particle,"_Evs_",metadata$Evs)
 
+metadata <- metadata %>% 
+  arrange(Particle, desc(Evs), desc(Time))
+
 #Define colors and fill vectors
 
 color_mapping <- c("#FFFF33", "gold", "goldenrod3", "grey","green","green", "blue", "blue")
@@ -270,8 +273,7 @@ metadata[metadata$Evs =="NO",]$Fill <- metadata[metadata$Evs =="NO",]$Color
 
 # metadata_copy <- metadata
 
-metadata <- metadata %>% 
-  arrange(Particle, desc(Evs), desc(Time))
+
 
 reads_spec <- reads_spec[,metadata$Original.ID]
 colnames(reads_spec) <- metadata$Sample.Names
