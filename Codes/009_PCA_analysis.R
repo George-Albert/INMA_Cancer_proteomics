@@ -16,6 +16,8 @@
   library(ggrepel)
 }
 
+source("src/statistics.R")
+
 
 ############################
 ### 1. Declare functions ### 
@@ -44,19 +46,13 @@ rm_ext <- remove_extreme_vec[3]
 reads[is.na(reads)] <- 0
 
 exp=log2(reads+1)
-exp_norm=normalize.quantiles.robust(as.matrix(exp),copy=FALSE, 
-                                    remove.extreme=rm_ext,
-                                    n.remove=1,use.median=FALSE,
-                                    use.log2=FALSE)
+exp_norm <- normalize_expression(reads, rm_ext = rm_ext)
 th_mean <- 0.5
 means=apply(exp_norm,1,mean)
 reads_filtered <- reads[which(means>th_mean),]
 
 exp=log2(reads_filtered+1)
-exp_norm_1=normalize.quantiles.robust(as.matrix(exp),copy=FALSE, 
-                                      remove.extreme=rm_ext,
-                                      n.remove=1,use.median=FALSE,
-                                      use.log2=FALSE)
+exp_norm_1 <- normalize_expression(reads_filtered, rm_ext = rm_ext)
 
 ### number of samples and genes
 n_samples <- ncol(reads)
@@ -152,10 +148,7 @@ reads_wo_outlier <- reads_filtered[,rownames(metadata_evs_control)]
 write.table(metadata_wo_outlier, file.path(input_dir,"txt","metadata_filtered_added.txt"))
 
 exp_wo_outlier=log2(reads_wo_outlier+1)
-exp_norm_wo_outlier=normalize.quantiles.robust(as.matrix(exp_wo_outlier),copy=FALSE, 
-                                    remove.extreme=rm_ext,
-                                    n.remove=1,use.median=FALSE,
-                                    use.log2=FALSE)
+exp_norm_wo_outlier <- normalize_expression(reads_wo_outlier, rm_ext = rm_ext)
 
 ### Design matrix 
 metadata_evs_control$Setup <- factor(metadata_evs_control$Setup,levels = unique(metadata_evs_control$Setup))
@@ -233,10 +226,7 @@ metadata_evs_yes <- metadata_wo_outlier[metadata_wo_outlier$Evs == "Yes" &
 reads_evs_yes <- reads_filtered[,rownames(metadata_evs_yes)]
 
 exp_wo_outlier=log2(reads_evs_yes+1)
-exp_norm_wo_outlier=normalize.quantiles.robust(as.matrix(exp_wo_outlier),copy=FALSE, 
-                                               remove.extreme=rm_ext,
-                                               n.remove=1,use.median=FALSE,
-                                               use.log2=FALSE)
+exp_norm_wo_outlier <- normalize_expression(reads_evs_yes, rm_ext = rm_ext)
 
 ### Design matrix 
 metadata_evs_yes$Setup <- factor(metadata_evs_yes$Setup,levels = unique(metadata_evs_yes$Setup))
@@ -315,10 +305,7 @@ metadata_evs_no <- metadata_wo_outlier[metadata_wo_outlier$Evs == "NO",]
 reads_evs_no <- reads_filtered[,rownames(metadata_evs_no)]
 
 exp_wo_outlier=log2(reads_evs_no+1)
-exp_norm_wo_outlier=normalize.quantiles.robust(as.matrix(exp_wo_outlier),copy=FALSE, 
-                                               remove.extreme=rm_ext,
-                                               n.remove=1,use.median=FALSE,
-                                               use.log2=FALSE)
+exp_norm_wo_outlier <- normalize_expression(reads_evs_no, rm_ext = rm_ext)
 
 ### Design matrix 
 metadata_evs_no$Setup <- factor(metadata_evs_no$Setup,levels = unique(metadata_evs_no$Setup))
@@ -398,10 +385,7 @@ metadata_evs_no_1 <- metadata_wo_outlier[metadata_wo_outlier$Evs == "NO" &
 reads_evs_no_1 <- reads_filtered[,rownames(metadata_evs_no_1)]
 
 exp_wo_outlier=log2(reads_evs_no_1+1)
-exp_norm_wo_outlier=normalize.quantiles.robust(as.matrix(exp_wo_outlier),copy=FALSE, 
-                                               remove.extreme=rm_ext,
-                                               n.remove=1,use.median=FALSE,
-                                               use.log2=FALSE)
+exp_norm_wo_outlier <- normalize_expression(reads_evs_no_1, rm_ext = rm_ext)
 
 ### Design matrix 
 metadata_evs_no_1$Setup <- factor(metadata_evs_no_1$Setup,levels = unique(metadata_evs_no_1$Setup))

@@ -16,6 +16,8 @@
   library(ggrepel)
 }
 
+source("src/statistics.R")
+
 
 ############################
 ### 1. Declare functions ### 
@@ -44,19 +46,13 @@ rm_ext <- remove_extreme_vec[3]
 reads[is.na(reads)] <- 0
 
 exp=log2(reads+1)
-exp_norm=normalize.quantiles.robust(as.matrix(exp),copy=FALSE, 
-                                    remove.extreme=rm_ext,
-                                    n.remove=1,use.median=FALSE,
-                                    use.log2=FALSE)
+exp_norm <- normalize_expression(reads, rm_ext = rm_ext)
 th_mean <- 0.5
 means=apply(exp_norm,1,mean)
 reads_filtered <- reads[which(means>th_mean),]
 
 exp=log2(reads_filtered+1)
-exp_norm_1=normalize.quantiles.robust(as.matrix(exp),copy=FALSE, 
-                                      remove.extreme=rm_ext,
-                                      n.remove=1,use.median=FALSE,
-                                      use.log2=FALSE)
+exp_norm_1 <- normalize_expression(reads_filtered, rm_ext = rm_ext)
 
 ### number of samples and genes
 n_samples <- ncol(reads)
