@@ -39,9 +39,9 @@ if (!dir.exists(file.path(input_dir,DEG_dir,"mean_0.2","txt")) ||
   stop("Expected DEG directories were not found under Inputs/009_Significative_DEG_added")
 }
 
-deg_mean_0.2 <- list.files(path = file.path(input_dir,DEG_dir,"mean_0.2","txt"),pattern = "txt")
-deg_mean_0.5 <- list.files(path = file.path(input_dir,DEG_dir,"mean_0.5","txt"),pattern = "txt")
-deg_mean_1 <- list.files(path = file.path(input_dir,DEG_dir,"mean_1","txt"),pattern = "txt")
+deg_mean_0.2 <- list.files(path = file.path(input_dir,DEG_dir,"mean_0.2","txt"),pattern = "\\.txt$")
+deg_mean_0.5 <- list.files(path = file.path(input_dir,DEG_dir,"mean_0.5","txt"),pattern = "\\.txt$")
+deg_mean_1 <- list.files(path = file.path(input_dir,DEG_dir,"mean_1","txt"),pattern = "\\.txt$")
 
 list_of_files_mean_0.2 <- lapply(deg_mean_0.2, function(x) read.table(file.path(input_dir,DEG_dir,"mean_0.2","txt",x)))
 list_of_files_mean_0.5 <- lapply(deg_mean_0.5, function(x) read.table(file.path(input_dir,DEG_dir,"mean_0.5","txt",x)))

@@ -32,7 +32,7 @@ output_dir <- "Outputs"
 ##                     Loading Data                     ##
 ##########################################################
 feature_data=read.table(file.path(input_dir,"txt","feature_data_added.txt"))
-metadata=read.table(file.path(input_dir,"txt","metadata_added.txt"))
+metadata=read.table(file.path(input_dir,"txt","metadata_filtered_added.txt"))
 reads_spec=read.table(file.path(input_dir,"txt","reads_spec_added.txt"))
 reads_empai=read.table(file.path(input_dir,"txt","reads_empai_added.txt"))
 
