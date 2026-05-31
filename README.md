@@ -11,7 +11,7 @@ The analysis focuses on preprocessing, quality control, statistical modeling, an
 - src: reusable functions for IO, preprocessing, statistics, and visualization.
 - config: pipeline parameters and contrasts.
 - scripts: production pipeline scripts.
-- scripts/legacy: original scripts preserved for traceability.
+- scripts/legacy: original and extended legacy scripts (001-014) preserved for traceability.
 - notebooks/exploratory: ad hoc analysis notebooks.
 - tests/testthat: basic unit tests.
 - Inputs and Outputs: data and generated artifacts from the analysis.
@@ -26,4 +26,4 @@ The analysis focuses on preprocessing, quality control, statistical modeling, an
 ## Notes
 
 - Differential expression output names now use mean_gt_X to avoid invalid Windows file names.
-- The legacy scripts are kept unchanged under scripts/legacy for reproducibility and comparison.
+- The former top-level Codes directory was consolidated into scripts/legacy to keep a single source of truth for legacy scripts.
