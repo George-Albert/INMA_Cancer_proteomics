@@ -1,0 +1,6 @@
+input_dir: Inputs
+output_dir: Outputs
+raw_data_dir: Inputs/001_Raw_data
+quality_dir: Inputs/002_Quality_annotated
+txt_dir: Inputs/txt
+xlsx_dir: Inputs/xlsx
