@@ -9,12 +9,12 @@
   library(stringr)
 }
 
+source("src/utils.R")
+
 #################
 ##  Functions  ##
 #################
 {
-  create_dir=function(x){suppressWarnings(dir.create(x,recursive=TRUE))}
-  dcols=function(x){data.frame(colnames(x))}
   options(width=1000)
   # input_dir <- location of the input data
   # name      <-  name of the file to examine

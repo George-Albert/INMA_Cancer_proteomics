@@ -16,17 +16,13 @@
     library(writexl)
 }
 
+source("src/utils.R")
+
 #################
 ##  Functions  ##
 ################# 
 {
-  create_dir=function(x){suppressWarnings(dir.create(x,recursive=TRUE))}
-  dcols=function(x){data.frame(colnames(x))}
-  ul=function(x,n=5){x[1:min(nrow(x),n),1:min(ncol(x),n)]}
   options(width=1000)
-  my_name <- function(v1) {
-    deparse(substitute(v1))
-  }
   volcan_plot <- function(data,x,y,xintercept,th,ymax,title){
     
     datos <- data.frame(data)
