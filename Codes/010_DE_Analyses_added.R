@@ -177,7 +177,7 @@ for (th_mean in th_mean_vec ) {
   fit3=eBayes(fit,trend=T, robust=T)
   
   create_dir(file.path(output_dir,"plot_SA"))
-  SA_plt_dir <- paste0("Plot_SA_mean_added>",th_mean,".pdf")
+  SA_plt_dir <- paste0("Plot_SA_mean_added_gt_",th_mean,".pdf")
   
   plotSA(fit3)
   

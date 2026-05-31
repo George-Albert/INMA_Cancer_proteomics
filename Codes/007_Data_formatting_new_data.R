@@ -82,7 +82,7 @@
     ### Most of these are contaminants (to be confirmed)
     nan_gene_name <- tab[index_gene_name,]
     
-    ### Lets add the same name as the accession column to gene name
+    ### Let's add the accession value to Gene.Name for missing entries
     tab[index_gene_name,"Gene.Name"] <- tab[index_gene_name,"accession"]
     
     ### Create a column with the gene name issues found
@@ -212,9 +212,9 @@ for(sample in sample_names){
   # Extract the dupes by gene name
   dupe_gene_name <- tab[which(tab$Gene.Name.issues == "Duplicates"),]
   dupe_gene_name_list[[sample]] <- dupe_gene_name
-  # Extract the dupes by "seq.coverage", "seq.count","spec.count","NSAF","EMPAI"
+  # Extract duplicates by seq.coverage, seq.count, spec.count, NSAF, and EMPAI
   dupe_row <- tab[which(tab$duplicated_row == "Duplicates"),]
-  dupe_row_list[[sample]] <- dupe_gene_name
+  dupe_row_list[[sample]] <- dupe_row
   
 }
 

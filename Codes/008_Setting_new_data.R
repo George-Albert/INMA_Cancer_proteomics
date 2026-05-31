@@ -48,7 +48,7 @@ list_of_files <- setNames(list_of_files,var_names_to_list)
 
 paste("There are",length(sample_names),"files")
 
-### Lets create de reads matrix
+### Let's create the reads matrix
 columns_to_keep=c("Gene.Name","accession","description","spec.count","EMPAI")
 
 ### Here we selected the columns of interest and add  the sample names to the columns
@@ -78,7 +78,7 @@ full_data_df_copy <- full_data_df
 
 # Create a new column "Gene.Name"combining the columns that contain 'Gene.Name'
 full_data_df_copy$Gene.Name <- apply(full_data_df_copy[gene_name_columns], 1, function(x) {
-  # Return the first no Nan value
+  # Return the first non-NA value
   na.omit(x)[1]
 })
 
@@ -168,13 +168,13 @@ pattern <- "GN=(.*?)\\sPe="
 gene_name <- str_match(feature_data$Description, pattern)[,2]
 feature_data$Gene.Name.description <- gene_name
 
-# Pe (Protein Existance ???)
+# Pe (Protein existence)
 pattern <- "Pe=(.*?)\\sSV="
 pe <- str_match(feature_data$Description, pattern)[,2]
 feature_data$Pe <- pe
 length(which(feature_data$Pe==3)) ### 24 proteins with low confidence levels
 
-# SV (Sequence Version???)
+# SV (Sequence version)
 pattern <- "SV=(\\d+)"
 sv <- str_match(feature_data$Description, pattern)[,2]
 feature_data$SV <- sv

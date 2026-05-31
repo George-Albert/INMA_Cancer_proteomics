@@ -37,6 +37,12 @@ input_dir <-"Inputs"
 output_dir <- "Outputs"
 DEG_dir <- "009_Significative_DEG_added"
 
+if (!dir.exists(file.path(input_dir,DEG_dir,"mean_0.2","txt")) ||
+    !dir.exists(file.path(input_dir,DEG_dir,"mean_0.5","txt")) ||
+    !dir.exists(file.path(input_dir,DEG_dir,"mean_1","txt"))) {
+  stop("Expected DEG directories were not found under Inputs/009_Significative_DEG_added")
+}
+
 deg_mean_0.2 <- list.files(path = file.path(input_dir,DEG_dir,"mean_0.2","txt"),pattern = "txt")
 deg_mean_0.5 <- list.files(path = file.path(input_dir,DEG_dir,"mean_0.5","txt"),pattern = "txt")
 deg_mean_1 <- list.files(path = file.path(input_dir,DEG_dir,"mean_1","txt"),pattern = "txt")

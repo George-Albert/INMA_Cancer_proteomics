@@ -185,7 +185,7 @@ for (th_mean in th_mean_vec ) {
   exp_clean=exp_norm_1 - as.matrix(betas[,lote_col_to_delete]) %*% t(as.matrix(design[,lote_col_to_delete]))
   
   create_dir(file.path(output_dir,"plot_SA"))
-  SA_plt_dir <- paste0("Plot_SA_mean_reg_out>",th_mean,".pdf")
+  SA_plt_dir <- paste0("Plot_SA_mean_reg_out_gt_",th_mean,".pdf")
   
   plotSA(fit3)
   

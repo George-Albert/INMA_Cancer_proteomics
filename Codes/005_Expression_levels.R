@@ -19,9 +19,7 @@
   library(ggplot2)
   library(stringr)
   library(cowplot)
-  library(openxlsx)
   library(preprocessCore)
-  library(stringr)
   library(reshape2)
   library(eulerr)
 }
@@ -117,7 +115,6 @@ for (umbral in seq_along(vec)) {
   
   venn_dir <- "005_Venn_diagram"
   create_dir(file.path(input_dir,venn_dir))
-  quantil <- 
   write.table(exp_genes_Au_4h, file.path(input_dir,venn_dir,paste0(my_name(exp_genes_Au_4h),
                                                                    "_quant_",names(vec[umbral]),".txt")))
   write.table(exp_genes_PEG_4h, file.path(input_dir,venn_dir,paste0(my_name(exp_genes_PEG_4h),
@@ -136,7 +133,7 @@ for (umbral in seq_along(vec)) {
   name_euler <- gsub("%","_percent",name_euler)
   
   fill <- c("dodgerblue1","chartreuse1","coral","yellow")
-  name_labels <- c("Au_4h","PEG_4","Au_24h","PEG_24")
+  name_labels <- c("Au_4h","PEG_4h","Au_24h","PEG_24h")
   
   venn1 <- plot(venn(venn_list),quantities=list(type = c("counts", "percent"),
                                                 col="black", font=4, round=2, cex=0.5),

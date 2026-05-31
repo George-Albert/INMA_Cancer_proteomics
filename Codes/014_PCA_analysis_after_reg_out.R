@@ -12,9 +12,7 @@
   library(limma)
   library(ggplot2)
   library(stringr)
-  library(openxlsx)
   library(preprocessCore)
-  library(stringr)
   library(ggrepel)
 }
 
@@ -42,7 +40,7 @@ reads <- reads_vec[[2]]
 remove_extreme_vec <- c("variance","mean","both")
 rm_ext <- remove_extreme_vec[3]
 
-# Set all the NAn values to zero
+# Set all NA values to zero
 reads[is.na(reads)] <- 0
 
 exp=log2(reads+1)
@@ -81,7 +79,7 @@ fit2=eBayes(fit,trend=T, robust=T)
 betas <- fit2$coefficients
 ### Select the batch effect to delete
 lote_col_to_delete <- grep(pattern = "Sample.Order", colnames(betas))
-### get the new expression data
+### Get the expression matrix without batch effect contribution
 exp_clean=exp_norm_1 - as.matrix(betas[,lote_col_to_delete]) %*% t(as.matrix(design[,lote_col_to_delete]))
 
 tab_name <- "PCA_table_reg_out"

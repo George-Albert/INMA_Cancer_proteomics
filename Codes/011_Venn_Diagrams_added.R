@@ -159,7 +159,7 @@ for (condition in conditions) {
     
     venn1 <- plot(venn_list_eulerr,quantities=list(type = c("counts", "percent"),
                                                   col="black", font=4, round=2, cex=0.5),
-                  fills = list(fill = fill[1:length(combinations[[1]])], alpha = 0.6),
+                  fills = list(fill = fill[1:length(combinations[[comb]])], alpha = 0.6),
                   labels = list(col = "black", fontsize = 12),
                   col="black",
                   lty = 4:1,
@@ -183,10 +183,10 @@ for (condition in conditions) {
     venn3 <- gplots::venn(venn_list_plt)
     regions <- attributes(venn3)$intersections
     
-    for (nombre in names(regions)) {
-      write.csv(regions[[nombre]], file = file.path(region_dir, paste0(nombre, ".csv")), 
+    for (region_name in names(regions)) {
+      write.csv(regions[[region_name]], file = file.path(region_dir, paste0(region_name, ".csv")), 
                 row.names = FALSE, quote = FALSE)
-      writeLines(regions[[nombre]], file.path(region_dir, paste0(nombre, ".txt")))
+      writeLines(regions[[region_name]], file.path(region_dir, paste0(region_name, ".txt")))
     }
   }
   
