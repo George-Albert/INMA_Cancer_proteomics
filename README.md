@@ -8,22 +8,35 @@ The analysis focuses on preprocessing, quality control, statistical modeling, an
 
 ## Current structure
 
+- Codes: active scripts with the latest corrected/improved versions.
 - src: reusable functions for IO, preprocessing, statistics, and visualization.
 - config: pipeline parameters and contrasts.
 - scripts: production pipeline scripts.
-- scripts/legacy: original and extended legacy scripts (001-014) preserved for traceability.
+- scripts/legacy: archived historical scripts preserved for traceability.
 - notebooks/exploratory: ad hoc analysis notebooks.
 - tests/testthat: basic unit tests.
 - Inputs and Outputs: data and generated artifacts from the analysis.
 
 ## Pipeline order
 
-1. scripts/001_data_formatting.R
-2. scripts/002_setting_data.R
-3. scripts/003_pca_analysis.R
-4. scripts/004_de_analyses.R
+Main execution order in Codes:
+
+1. Codes/001_Data_formatting.R
+2. Codes/002_Setting_data.R
+3. Codes/003_PCA_analysis.R
+4. Codes/004_DE_Analyses.R
+5. Codes/005_Expression_levels.R
+6. Codes/006_Volcano_plots.R
+7. Codes/007_Data_formatting_new_data.R
+8. Codes/008_Setting_new_data.R
+9. Codes/009_PCA_analysis.R
+10. Codes/010_DE_Analyses_added.R
+11. Codes/011_Venn_Diagrams_added.R
+12. Codes/012_Bar_plots_per_contrasts.R
+13. Codes/013_DE_Analyses_reg_out.R
+14. Codes/014_PCA_analysis_after_reg_out.R
 
 ## Notes
 
 - Differential expression output names now use mean_gt_X to avoid invalid Windows file names.
-- The former top-level Codes directory was consolidated into scripts/legacy to keep a single source of truth for legacy scripts.
+- Codes contains the current maintained versions, while scripts/legacy keeps historical snapshots.
