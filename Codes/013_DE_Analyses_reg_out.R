@@ -26,12 +26,14 @@
   library(reshape2)
 }
 
+source("src/utils.R")
+source("src/statistics.R")
+
 
 #################
 ##  Functions  ##
 ################# 
 {
-create_dir=function(x){suppressWarnings(dir.create(x,recursive=TRUE))}
 dcols=function(x){data.frame(colnames(x))}
 ul=function(x,n=5){x[1:min(nrow(x),n),1:min(ncol(x),n)]}
 options(width=1000)
@@ -75,10 +77,7 @@ th_mean_vec <- c(0.2, 0.5, 1)
 exp=log2(reads+1)
 plotDensities(exp,legend=F)
 
-exp_norm=normalize.quantiles.robust(as.matrix(exp),copy=FALSE, 
-                                    remove.extreme=rm_ext,
-                                    n.remove=1,use.median=FALSE,
-                                    use.log2=FALSE)
+exp_norm <- normalize_expression(reads, rm_ext = rm_ext)
 exp_norm <- data.frame(exp_norm)
 
 # ?normalizeQuantiles()
@@ -168,11 +167,8 @@ for (th_mean in th_mean_vec ) {
   
   reads_filtered <- reads[which(means>th_mean),]
   
-  exp=log2(reads_filtered+1)
-  exp_norm_1=normalize.quantiles.robust(as.matrix(exp),copy=FALSE, 
-                                        remove.extreme=rm_ext,
-                                        n.remove=1,use.median=FALSE,
-                                        use.log2=FALSE)
+  exp_norm_1 <- normalize_expression(reads_filtered, rm_ext = rm_ext)
+  threshold_tag <- build_threshold_tag(th_mean)
   
   fit=lmFit(exp_norm_1,design)
   fit3=eBayes(fit,trend=T, robust=T)
@@ -185,7 +181,7 @@ for (th_mean in th_mean_vec ) {
   exp_clean=exp_norm_1 - as.matrix(betas[,lote_col_to_delete]) %*% t(as.matrix(design[,lote_col_to_delete]))
   
   create_dir(file.path(output_dir,"plot_SA"))
-  SA_plt_dir <- paste0("Plot_SA_mean_reg_out_gt_",th_mean,".pdf")
+  SA_plt_dir <- paste0("Plot_SA_reg_out_",threshold_tag,".pdf")
   
   plotSA(fit3)
   
@@ -222,11 +218,11 @@ for (th_mean in th_mean_vec ) {
     result_1 <- topTable(total_fit, coef = contrast, number = n_genes, adjust.method = "BH",p.value = 0.05)
     
     # Create the file name
-    file_name_csv <- file.path(input_dir,deg_dir, paste0("mean_",th_mean),"csv",paste0(contrast,"_mean_gt_",th_mean, ".csv"))
-    file_name_txt <- file.path(input_dir,deg_dir,paste0("mean_",th_mean),"txt", paste0(contrast,"_mean_gt_",th_mean,".txt"))
+    file_name_csv <- file.path(input_dir,deg_dir, paste0("mean_",th_mean),"csv",paste0(contrast,"_",threshold_tag, ".csv"))
+    file_name_txt <- file.path(input_dir,deg_dir,paste0("mean_",th_mean),"txt", paste0(contrast,"_",threshold_tag,".txt"))
     
-    file_name_csv.1 <- file.path(input_dir,sig_deg_dir, paste0("mean_",th_mean),"csv",paste0(contrast,"_mean_gt_",th_mean, ".csv"))
-    file_name_txt.1 <- file.path(input_dir,sig_deg_dir,paste0("mean_",th_mean),"txt", paste0(contrast,"_mean_gt_",th_mean,".txt"))
+    file_name_csv.1 <- file.path(input_dir,sig_deg_dir, paste0("mean_",th_mean),"csv",paste0(contrast,"_",threshold_tag, ".csv"))
+    file_name_txt.1 <- file.path(input_dir,sig_deg_dir,paste0("mean_",th_mean),"txt", paste0(contrast,"_",threshold_tag,".txt"))
     
     
     # Save the results to a CSV file and to txt file
