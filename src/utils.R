@@ -18,3 +18,15 @@ as_numeric_safe <- function(x) {
 build_threshold_tag <- function(threshold) {
   paste0('mean_gt_', threshold)
 }
+
+dcols <- function(x) {
+  data.frame(colnames(x))
+}
+
+ul <- function(x, n = 5) {
+  x[1:min(nrow(x), n), 1:min(ncol(x), n)]
+}
+
+my_name <- function(v1) {
+  deparse(substitute(v1))
+}

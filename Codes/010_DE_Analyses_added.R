@@ -20,9 +20,7 @@
   library(ggplot2)
   library(stringr)
   library(cowplot)
-  library(openxlsx)
   library(preprocessCore)
-  library(stringr)
   library(reshape2)
 }
 
@@ -34,12 +32,7 @@ source("src/statistics.R")
 ##  Functions  ##
 ################# 
 {
-dcols=function(x){data.frame(colnames(x))}
-ul=function(x,n=5){x[1:min(nrow(x),n),1:min(ncol(x),n)]}
 options(width=1000)
-my_name <- function(v1) {
-  deparse(substitute(v1))
-}
 }
 
 ###################################

@@ -16,14 +16,14 @@
   library(ggrepel)
 }
 
+source("src/utils.R")
 source("src/statistics.R")
 
 
 ############################
 ### 1. Declare functions ### 
 ############################
-dcols=function(x){data.frame(colnames(x))}
-create_dir=function(x){suppressWarnings(dir.create(x,recursive=TRUE))}
+options(width=1000)
 
 input_dir <-"Inputs" 
 output_dir <- "Outputs"
