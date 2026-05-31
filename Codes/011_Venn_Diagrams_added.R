@@ -44,9 +44,14 @@ feature_data=read.table(file.path(input_dir,"txt","feature_data_added.txt"))
 metadata=read.table(file.path(input_dir,"txt","metadata_filtered_added.txt"))
 reads_spec=read.table(file.path(input_dir,"txt","reads_spec_added.txt"))
 
-reads_spec <- reads_spec[,rownames(metadata)]
+if (!all(rownames(metadata) %in% colnames(reads_spec))) {
+  stop("Some metadata samples are not present in reads_spec columns")
+}
+reads_spec <- reads_spec[, rownames(metadata), drop = FALSE]
 reads_spec[is.na(reads_spec)] <- 0
-length(which(rownames(metadata) != colnames(reads_spec)))
+if (!identical(rownames(metadata), colnames(reads_spec))) {
+  stop("metadata row order does not match reads_spec column order after alignment")
+}
 
 ##################################################################
 ##                     SET INPUT PARAMETERS                     ##
